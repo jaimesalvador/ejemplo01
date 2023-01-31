@@ -7,7 +7,7 @@ sudo apt-get update
 sudo apt-get install libopenmpi-dev
 ```
 
-VErificar la instalación:
+Verificar la instalación:
 
 ```
 mpiexec --version

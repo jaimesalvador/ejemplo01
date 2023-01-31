@@ -13,4 +13,16 @@ Verificar la instalación:
 mpiexec --version
 ```
 
+## Compilar
+
+```
+mpicxx main.cpp -o ejemplo01
+```
+
+## Ejecutar
+
+```
+mpiexec -n 4 ./ejemplo01
+```
+
 

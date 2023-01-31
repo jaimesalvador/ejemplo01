@@ -19,11 +19,30 @@ int main(int argc, char** argv) {
         }
         std::printf("RANK0 enviando....\n");
         MPI_Send( &data[50],50, MPI_INT,1,0,MPI_COMM_WORLD);
+
+        int suma_parcial = 0;
+        for(int i=0;i<50;i++ ) {
+            suma_parcial = suma_parcial + data[i];
+        }
+
+         int suma_parcial2 = 0;
+        MPI_Recv(&suma_parcial2,1,MPI_INT,MPI_ANY_SOURCE,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        int suma_total = suma_parcial + suma_parcial2;
+
+        std::printf("La suma total es: %d\n", suma_total );
     }
     else if(rank==1){
         std::printf("RANK%d recibiendo....\n", rank);
         MPI_Recv(data,50,MPI_INT,MPI_ANY_SOURCE,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
         std::printf("RANK%d recibiendo....datos[99]=%d\n", rank, data[0]);
+
+        int suma_parcial = 0;
+        for(int i=0;i<50;i++ ) {
+            suma_parcial = suma_parcial + data[i];
+        }
+
+        MPI_Send( &suma_parcial,1, MPI_INT,0,0,MPI_COMM_WORLD);
     }
 
     MPI_Finalize();
